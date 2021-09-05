@@ -25,7 +25,6 @@ def rightRotate(lst,n):
         lst.append(temp)
         count = count + 1
     return lst
-
 #Pythonic rotation based out of slicing
 def rightRotate2(lst,n):
     return lst[n-1:] + lst[:n-1]
