@@ -267,6 +267,46 @@ class LinkedList(Node):
         self.head_node = previous
       return lst    
     
+    # time complexity is O(n) and Space Complexity is O(n) 
+    # here n is the space required to store value in hashing
+    def detect_loop(self):
+        current = self.head_node
+        t = set()
+        while(current):
+            if(current in t):
+                return True
+            t.add(current)
+            currrent = current.next_element
+        return False        
+    
+    # Time Complexity is O(n) and Space Compexity O(1)
+    # Using Floyd’s Cycle-Finding Algorithm
+    def detect_loop2(self):
+        one_step = self.head_node
+        two_step = self.head_node
+        # two_Step.next_element if None then we need to stop the loop, 
+        # if we have None then there is no loop
+        while(one_step and two_step and two_step.next_element):
+            one_step = one_step.next_element
+            two_step = two_step.next_element.next_element
+            if(one_step == two_step):
+                return True
+
+        return False 
+    # Time complexity is O(n)
+    def find_mid(self):
+        length  = self.len()
+        if(length%2 == 0):
+            n = length//2
+        else:
+            n = length//2 + 1
+        current = self.head_node
+        while(n>1):
+            current = current.next_element
+            n = n - 1
+        return current.data
+    
+
 if(__name__=="__main__"):        
     lst = LinkedList()
     print(lst.get_head())
@@ -276,6 +316,7 @@ if(__name__=="__main__"):
     lst.insert_at_head(1)
     lst.print_list()
     lst.insert_at_tail(5)
+
     print()
     lst.print_list()
     print()
@@ -298,5 +339,10 @@ if(__name__=="__main__"):
     print()
     print(lst.reverse_2())
     lst.print_list()
+    print()
+    print(lst.detect_loop())
+    print(lst.detect_loop2())
+    print(lst.find_mid())
+    print(lst.find_mid2())
 
     
