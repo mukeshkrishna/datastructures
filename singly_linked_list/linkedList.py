@@ -306,6 +306,60 @@ class LinkedList(Node):
             n = n - 1
         return current.data
     
+    # Time complexity is O(n), and space is O(n) where n is space used while inserting data to hash
+    def remove_duplicates(self):
+        current = self.head_node
+        hash = set()
+        prev_node = None
+        while(current):
+            next_node = current.next_element
+            if(current.data in hash):
+                prev_node.next_element = next_node
+                current.next_element = None
+            else:
+                hash.add(current.data)
+                prev_node = current
+            current = next_node
+    def union(self,list1,list2):
+        list1 = list1.get_head()
+        list2 = list2.get_head()
+        while(list1):
+            if(list1.next_element is None):
+                list1.next_element = list2
+                list2.head_node = None
+                return True
+            list1 = list1.next_element
+    def intersection(self,list1,list2):
+        if(list1.is_empty() and list2.is_empty()):
+            return False
+        list1_hash = set()
+        list2_hash = set()
+        list1 = list1.get_head()
+        list2 = list2.get_head()
+        inter = set()
+        while(list1 or list2):
+            if(list1):
+                list1_hash.add(list1.data)
+                list1 = list1.next_element
+            if(list2):
+                list2_hash.add(list2.data)
+                list2 = list2.next_element
+        return list1_hash.intersection(list2_hash)
+    
+    def find_nth(self,n):
+        length = self.len()
+        mid = length // 2
+        if(n<mid):
+            m = mid + (mid - n)
+        else:
+            m = mid + (mid - n + 1) 
+        current = self.head_node
+        while(m>0):
+            current = current.next_element
+            m = m - 1
+        return current.data
+    
+                
 
 if(__name__=="__main__"):        
     lst = LinkedList()
@@ -315,7 +369,7 @@ if(__name__=="__main__"):
     lst.insert_at_head(2)
     lst.insert_at_head(1)
     lst.print_list()
-    lst.insert_at_tail(5)
+    lst.insert_at_tail(4)
 
     print()
     lst.print_list()
@@ -343,6 +397,33 @@ if(__name__=="__main__"):
     print(lst.detect_loop())
     print(lst.detect_loop2())
     print(lst.find_mid())
-    print(lst.find_mid2())
+    lst.insert_at_tail(5)
+    lst.insert_at_tail(5)
+    lst.insert_at_tail(2)
+    lst.print_list()
+    print(lst.remove_duplicates())
+    lst.print_list()
+    lst2 = LinkedList()
+    lst2.insert_at_head(8)
+    lst2.insert_at_head(7)
+    lst2.insert_at_head(6)
+    lst2.insert_at_head(4)
+    lst2.insert_at_head(2)
+
+    lst3 = LinkedList()
+    lst3.union(lst,lst2)
+
+    print(lst3.intersection(lst,lst2))
+
+    print()
+    lst.print_list()
+    print()
+    print(lst.find_nth(3))
+    lst2.print_list()
+    print()
+    print(lst2.find_nth(4))
+
+
+
 
     
