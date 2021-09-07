@@ -422,8 +422,10 @@ if(__name__=="__main__"):
     lst2.print_list()
     print()
     print(lst2.find_nth(4))
-
-
+    print()
+    lst.print_list()
+    current_node = lst.get_head().next_element
+    print(current_node)
 
 
     
